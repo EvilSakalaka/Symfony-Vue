@@ -1,0 +1,52 @@
+ARG UBUNTU_VERSION=24.04
+ARG PHP_VERSION=8.2
+ARG DEBIAN_FRONTEND=noninteractive
+ARG WWW_USER_ID=1000
+ARG WWW_GROUP_ID=1000
+ARG TZ=Europe/Budapest
+
+
+FROM ubuntu:${UBUNTU_VERSION}
+
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+RUN sed -i 's/deb http:\/\//deb https:\/\//g' /etc/apt/sources.list
+RUN sed -i 's/deb-src http:\/\//deb-src https:\/\//g' /etc/apt/sources.list
+
+RUN apt-get update && apt-get install -y php${PHP_VERSION} php${PHP_VERSION}-xml php${PHP_VERSION}-mbstring php${PHP_VERSION}-mysqli \
+                        php${PHP_VERSION}-mysql php${PHP_VERSION}-redis \
+                        php${PHP_VERSION}-mysqlnd php${PHP_VERSION}-curl php${PHP_VERSION}-imagick php${PHP_VERSION}-intl php${PHP_VERSION}-soap \
+                        git curl unzip apache2 libapache2-mod-php supervisor msmtp \
+                        imagemagick redis-server nodejs npm openssl ca-certificates
+
+
+RUN curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
+RUN php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
+
+RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash
+RUN apt-get install -y symfony-cli
+
+ADD ./docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+ADD ./docker/apache-site.conf /etc/apache2/sites-available/apache-site.conf
+ADD ./docker/php.ini /etc/php/${PHP_VERSION}/apache2/conf.d/99-app.ini
+ADD ./docker/php.ini /etc/php/${PHP_VERSION}/cli/conf.d/99-app.ini
+COPY ./docker/apache-ports.conf /etc/apache2/ports.conf
+
+
+RUN a2enmod rewrite \
+ && a2dissite 000-default.conf \
+ && a2ensite apache-site.conf
+
+RUN mkdir -p /var/www/webapp/backend
+RUN mkdir -p /var/www/webapp/frontend
+
+WORKDIR /var/www/webapp/
+
+#COPY ./src/backend ./backend
+#COPY ./src/frontend ./frontend
+
+RUN chown -R www-data:www-data /var/www/webapp \
+ && chmod -R 755 /var/www/webapp
+
+
+EXPOSE 80 8080
