@@ -4,11 +4,18 @@
     const loading = ref(true);
     const error = ref(null);
     const apidata = ref(null);
-    const apiUrl = 'http://localhost:8080/teszt';
+    const apiUrl = 'http://localhost:8080/api/teszt';
 
     onMounted(async () => {
         try {
-            const response = await fetch(apiUrl);
+            const token = localStorage.getItem('token');
+            const response = await fetch(apiUrl , {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+                });
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

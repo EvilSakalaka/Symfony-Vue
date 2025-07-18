@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "bootstrap": "^5.3.7",
+    "jwt-decode": "^4.0.0",
     "node": "^20.19.4",
     "vue": "^3.5.17",
     "vue-router": "^4.5.1"
