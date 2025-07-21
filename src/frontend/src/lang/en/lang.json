@@ -2,5 +2,10 @@
     "homepage": "Home",
     "aboutpage": "About",
     "loginbutton": "Login",
-    "signinbutton": "Sign Up"
+    "signupbutton": "Sign Up",
+    "closebutton": "Close",
+    "username": "Username",
+    "password": "Password",
+    "usernamePlaceholder": "Enter username",
+    "passwordPlaceholder": "Enter password"
 }

@@ -1,5 +1,6 @@
 <script setup>
-    import LoginWindow from "@/components/LoginWindow.vue";
+    import LoginWindow from "@/components/windows/LoginWindow.vue";
+    import SignupWindow from "@/components/windows/SingupWindow.vue";
     import { useRoute } from 'vue-router';
     import { computed, ref } from 'vue';
     import { lang } from '@/languageImporter';
@@ -8,17 +9,29 @@
     const pageTitle = computed(() => route.name || 'Jász Plasztik PDCS');
 
     const loginWindowState = ref(false);
+    const signupWindowState = ref(false);
     
-    function showLogin() {
+    
+
+    function toggleLogin() {
         // Logic for handling login can be added here
 
         console.log('Login button clicked');
-        loginWindowState.value = true;
+        loginWindowState.value = !loginWindowState.value;
+    }
+
+    function toggleSignup() {
+        // Logic for handling signup can be added here
+
+        console.log('Signup button clicked');
+        // Implement signup logic if needed
+        signupWindowState.value = !signupWindowState.value;
     }
 </script>
 
 <template>
-    <LoginWindow v-if="loginWindowState" @close="loginWindowState.value = false"/>
+    <LoginWindow v-if="loginWindowState" @close="toggleLogin"/>
+    <SignupWindow v-if="signupWindowState" @close="toggleSignup"/>
     <header class="row align-items-center">
     <img
       alt="JP logo"
@@ -35,9 +48,9 @@
         <!--<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             {{ lang('loginbutton') }}
         </button>-->
-        <p class="col-auto" @click.prevent="showLogin">{{ lang('loginbutton') }}</p>
+        <p class="col-auto" @click.prevent="toggleLogin">{{ lang('loginbutton') }}</p>
         <p class="col-auto">/</p>
-        <p class="col-auto">{{ lang('signinbutton') }}</p>
+        <p class="col-auto" @click.prevent="toggleSignup">{{ lang('signupbutton') }}</p>
     </div>
   </header>
 </template>

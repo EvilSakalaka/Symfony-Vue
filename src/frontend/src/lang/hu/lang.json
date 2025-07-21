@@ -2,5 +2,10 @@
     "homepage": "Kezdőoldal",
     "aboutpage": "Rólunk",
     "loginbutton": "Bejelentkezés",
-    "signinbutton": "Regisztráció"
+    "signupbutton": "Regisztráció",
+    "closebutton": "Bezárás",
+    "username": "Felhasználónév",
+    "password": "Jelszó",
+    "usernamePlaceholder": "Adja meg a felhasználónevet",
+    "passwordPlaceholder": "Adja meg a jelszót"
 }
