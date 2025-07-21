@@ -8,7 +8,7 @@
         password: ''
     });
     const error = ref(null);
-    const apiUrl = 'http://localhost:8080/api/signup';
+    const apiUrl = 'http://localhost:8080/auth/signup';
     
     const handleSubmit = async () => {
         try {
@@ -27,7 +27,7 @@
             }
             const data = await response.json();
             console.log('Signup response data:', data);
-            router.push('/teszt'); // Redirect to login after successful signup
+            router.push('/login'); // Redirect to login after successful signup
         } catch (err) {
             error.value = `Hiba történt: ${err.message}`;
         }

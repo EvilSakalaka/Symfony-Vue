@@ -9,7 +9,7 @@ const formData = ref({
         password: ''
     });
 const error = ref(null);
-const apiUrl = 'http://localhost:8080/api/login_check';
+const apiUrl = 'http://localhost:8080/auth/login';
 
 async function login() {
     try {

@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\ApiUser;
+use App\Entity\WebUser;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Psr\Log\LoggerInterface;
@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class AuthController extends AbstractController
 {
-    #[Route('/api/signup', name: 'webapp_signup', methods: ['POST', 'OPTIONS'])]
+    #[Route('/auth/signup', name: 'webapp_signup', methods: ['POST', 'OPTIONS'])]
     public function signup(
         Request $request,
         EntityManagerInterface $em,
@@ -50,11 +50,11 @@ final class AuthController extends AbstractController
         }
 
         // Duplikált username ellenőrzés
-        if ($em->getRepository(ApiUser::class)->findOneBy(['username' => $data['username']])) {
+        if ($em->getRepository(WebUser::class)->findOneBy(['username' => $data['username']])) {
             return new JsonResponse(['error' => 'Username already taken'], 400);
         }
 
-        $user = new ApiUser();
+        $user = new WebUser();
         $user->setUsername($data['username']);
         $hashedPassword = $passwordHasher->hashPassword($user, $data['password']);
         $user->setPassword($hashedPassword);
