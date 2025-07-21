@@ -1,4 +1,6 @@
 {
     "homepage": "Kezdőoldal",
-    "aboutpage": "Rólunk"
+    "aboutpage": "Rólunk",
+    "loginbutton": "Bejelentkezés",
+    "signinbutton": "Regisztráció"
 }

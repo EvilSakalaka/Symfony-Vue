@@ -1,4 +1,6 @@
 {
     "homepage": "Home",
-    "aboutpage": "About"
+    "aboutpage": "About",
+    "loginbutton": "Login",
+    "signinbutton": "Sign Up"
 }
