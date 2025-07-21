@@ -1,91 +1,57 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
-import HelloWorld from "./components/HelloWorld.vue";
+import { RouterLink, RouterView, useRoute } from "vue-router";
+import { computed } from "vue";
+const route = useRoute();
+
+const pageTitle = computed(() => route.name || "Jász Plasztik PDCS");
+
 </script>
 
 <template>
-  <header>
+  <header class="row align-items-center">
     <img
-      alt="Vue logo"
-      class="logo"
-      src="@/assets/logo.svg"
-      width="125"
-      height="125"
+      alt="JP logo"
+      class="col-2"
+      src="@/assets/jp_logo.svg"
+      height="80"
     />
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!!!!" />
+    <div class="col text-center">
+      <h1>{{ pageTitle }}</h1>
+    </div>
+    <div class="col-auto">
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
     </div>
   </header>
-
-  <RouterView />
+  <div class="row">
+    <ul class="nav flex-column col-2">
+      <li class="nav-item">
+        <RouterLink to="/" class="nav-link">Home</RouterLink>
+      </li>
+      <li class="nav-item">
+        <RouterLink to="/about" class="nav-link">About</RouterLink>
+      </li>
+    </ul>
+    <div class="col">
+      <RouterView />
+    </div>
+  </div>
 </template>
 
 <style scoped>
 header {
-  line-height: 1.5;
-  max-height: 100vh;
+  background-color: #002777;
+  color: white;
+  padding : 5px;
 }
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
 nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+  background-color: #00349b;
+  padding: 10px;
 }
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
 nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+  color: white;
+  text-decoration: none;
+  margin-right: 10px;
+  display: block;
 }
 </style>

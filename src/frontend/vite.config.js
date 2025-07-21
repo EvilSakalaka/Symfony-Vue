@@ -29,4 +29,16 @@ export default defineConfig({
       usePolling: true,
     }
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        silenceDeprecations: [
+          'import',
+          'mixed-decls',
+          'color-functions',
+          'global-builtin',
+        ],
+      }
+    }
+  }
 })
