@@ -1,6 +1,7 @@
 <script setup>
     import { lang } from '@/languageImporter';
     import { ref } from 'vue';
+    import * as jwt_Decode from 'jwt-decode';
 
     defineEmits(['close']);
 
@@ -29,7 +30,7 @@
             const data = await response.json();
             const token = data.token;
             localStorage.setItem('token', token);
-            const decodedToken = jwt_decode.jwtDecode(token);
+            const decodedToken = jwt_Decode.jwtDecode(token);
             console.log('Decoded token:', decodedToken);
         } catch (err) {
             error.value = `Hiba történt: ${err.message}`;
