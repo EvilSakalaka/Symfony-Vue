@@ -73,5 +73,16 @@ final class AuthController extends AbstractController
     }
     }
 
-
+    #[Route('/api/user', name: 'webapp_getuser', methods: ['GET'])]
+    public function getCurrentUser(Request $request, EntityManagerInterface $em): JsonResponse
+    {
+        // Itt implementálhatod a felhasználói adatok lekérését
+        // Például, ha a felhasználó azonosítója a JWT-ben van, akkor azt dekódolhatod és lekérheted az adatokat
+        // Vagy ha session alapú autentikációt használsz, akkor a session-ből olvashatod ki a felhasználót
+        $user = $this->getUser(); // Symfony beépített metódus, ami visszaadja a jelenlegi felhasználót
+        // Példa válasz (cseréld le a tényleges logikára):
+        return new JsonResponse([
+            'username' => $user->getUsername(),
+        ], 200);
+    }
 }
